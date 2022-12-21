@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { jquery } from 'src/app/shared/jquery';
 import { ProductDetailService } from '../service/product-detail.service';
 import { ProductDetailRepository } from '../state/product-detail.repository';
 
@@ -20,9 +21,13 @@ export class ProductDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // this.jquery();
+    jquery();
     this.productDetail$.subscribe(console.log);
     this.productId = this.route.snapshot.paramMap.get('productId');
     if (this.productId)
       this.productDetailService.fetchProductDetail(this.productId);
   }
+
+
 }
