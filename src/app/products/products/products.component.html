@@ -153,7 +153,7 @@
                 <div class="features_items"><!--features_items-->
 
                     <ng-container *ngFor="let product of ((products$ | async)?.data)">
-                        <app-card [title]="product.title" [price]="product.price" [img]="product.thumbnail">
+                        <app-card [product]="product">
                         </app-card>
                     </ng-container>
 

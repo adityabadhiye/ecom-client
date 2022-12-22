@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ProductResponce } from 'src/app/shared/product-resp.model';
 
 @Component({
   selector: 'app-card',
@@ -6,7 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent {
-  @Input() title = '';
-  @Input() price = '';
-  @Input() img = '';
+  @Input() product?: ProductResponce;
 }
