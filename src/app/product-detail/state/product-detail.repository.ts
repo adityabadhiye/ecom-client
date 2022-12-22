@@ -19,6 +19,9 @@ export class ProductDetailRepository {
   productDetail$: Observable<any>;
 
   private store;
+  initState: ProductDetailProps = {
+    images: ["", "", "", "", ""]
+  };
 
   constructor() {
     this.store = this.createStore();
@@ -30,8 +33,7 @@ export class ProductDetailRepository {
   }
 
   private createStore(): typeof store {
-    const store = createStore({ name: 'productDetail' }, withProps<ProductDetailProps>({}), withRequestsStatus<'product-detail'>());
-
+    const store = createStore({ name: 'productDetail' }, withProps<ProductDetailProps>(this.initState), withRequestsStatus<'product-detail'>());
     return store;
   }
 }

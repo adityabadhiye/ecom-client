@@ -21,13 +21,10 @@ export class ProductDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.jquery();
     jquery();
     this.productDetail$.subscribe(console.log);
     this.productId = this.route.snapshot.paramMap.get('productId');
     if (this.productId)
       this.productDetailService.fetchProductDetail(this.productId);
   }
-
-
 }
