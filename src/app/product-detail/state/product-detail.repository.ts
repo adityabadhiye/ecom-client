@@ -7,11 +7,11 @@ import { select } from '@ngneat/elf';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ProductDetailProps {
-  id?: number;
-  title?: string;
-  description?: string;
-  price?: number;
-  images?: string[];
+  id: number | null;
+  title: string | null;
+  description: string | null;
+  price: number | null;
+  images: string[];
 }
 
 @Injectable({ providedIn: 'root' })
@@ -19,9 +19,6 @@ export class ProductDetailRepository {
   productDetail$: Observable<any>;
 
   private store;
-  initState: ProductDetailProps = {
-    images: ["", "", "", "", ""]
-  };
 
   constructor() {
     this.store = this.createStore();
@@ -33,7 +30,17 @@ export class ProductDetailRepository {
   }
 
   private createStore(): typeof store {
-    const store = createStore({ name: 'productDetail' }, withProps<ProductDetailProps>(this.initState), withRequestsStatus<'product-detail'>());
+    const store = createStore(
+      { name: 'productDetail' },
+      withProps<ProductDetailProps>({
+        id: null,
+        title: null,
+        description: null,
+        price: null,
+        images: []
+      }),
+      withRequestsStatus<'product-detail'>()
+    );
     return store;
   }
 }

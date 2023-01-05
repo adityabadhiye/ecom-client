@@ -899,7 +899,7 @@ h2.title {
 }
 
 .productinfo img {
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
   height: 254px;
 }
@@ -1464,6 +1464,18 @@ h2.title {
 }
 
 .login-form {}
+
+.validation {
+  margin-bottom: 18px;
+  background-color: #fce4e4;
+  border: 1px solid #fcc2c3;
+  float: left;
+  padding: 20px 30px;
+  color: #cc0033;
+  font-family: Helvetica, Arial, sans-serif;
+  padding: 5px 10px;
+  font-size: 13px;
+}
 
 .signup-form {}
 

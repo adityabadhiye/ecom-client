@@ -5,6 +5,7 @@ import { SignupComponent } from './signup/signup.component';
 import { RouterModule } from '@angular/router';
 import { AuthRoutes } from './auth.routes';
 import { AuthComponent } from './auth/auth.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,11 +14,11 @@ import { AuthComponent } from './auth/auth.component';
     LoginComponent,
     SignupComponent,
     AuthComponent,
-    AuthComponent
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(AuthRoutes)
+    RouterModule.forChild(AuthRoutes),
+    ReactiveFormsModule
   ],
   exports: [
     LoginComponent

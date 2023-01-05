@@ -1,8 +1,13 @@
 <div class="login-form"><!--login form-->
     <h2>Login to your account</h2>
-    <form action="#">
-        <input type="text" placeholder="Name" />
-        <input type="email" placeholder="Email Address" />
+    <div class="validation" *ngIf="(loginStatus$ | async).value=='error'">
+        <div *ngFor="let item of ((loginStatus$ | async ).error | keyvalue)">
+            <b>{{item.key}}</b>: {{item.value}}
+        </div>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        <input type="email" placeholder="Email" formControlName="email" />
+        <input type="password" placeholder="Password" formControlName="password" />
         <span>
             <input type="checkbox" class="checkbox">
             Keep me signed in
