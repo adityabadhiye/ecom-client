@@ -7,117 +7,40 @@
 <section>
     <div class="container">
         <div class="row">
+
+            <div class="search_box pull-right">
+                <input (keydown.enter)="searchChanged()" [(ngModel)]="searchText" type="text" placeholder="Search" />
+                <span (click)="searchChanged()" class="primary-btn search-btn" id="search-addon">
+                    <i class="fas fa-search"></i>
+                </span>
+                <!-- <span class="product__pagination">
+                    <a><i class="fas fa-search"></i></a>
+                </span> -->
+            </div>
+        </div>
+        <div class="row">
             <div class="col-sm-3">
                 <div class="left-sidebar">
                     <h2>Category</h2>
-                    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                        <div class="panel panel-default">
+                    <div *ngIf="(category$ | async)?.isSuccess" class="panel-group category-products" id="accordian">
+                        <!--category-productsr-->
+                        <div *ngFor="let c of (category$ | async).data" class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                        Sportswear
+                                    <a [class.hidden]="c.id !== (selectedCatId$|async)" (click)="categoryChanged('')">
+                                        <span class="badge pull-right selected-color123"><i
+                                                class="fa fa-xmark"></i></span>
+                                    </a>
+                                    <a [class.selected-color123]="c.id === (selectedCatId$|async)"
+                                        (click)="categoryChanged(c.name)">
+                                        {{c.name}}
                                     </a>
                                 </h4>
-                            </div>
-                            <div id="sportswear" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <ul>
-                                        <li><a href="">Nike </a></li>
-                                        <li><a href="">Under Armour </a></li>
-                                        <li><a href="">Adidas </a></li>
-                                        <li><a href="">Puma</a></li>
-                                        <li><a href="">ASICS </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordian" href="#mens">
-                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                        Mens
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="mens" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <ul>
-                                        <li><a href="">Fendi</a></li>
-                                        <li><a href="">Guess</a></li>
-                                        <li><a href="">Valentino</a></li>
-                                        <li><a href="">Dior</a></li>
-                                        <li><a href="">Versace</a></li>
-                                        <li><a href="">Armani</a></li>
-                                        <li><a href="">Prada</a></li>
-                                        <li><a href="">Dolce and Gabbana</a></li>
-                                        <li><a href="">Chanel</a></li>
-                                        <li><a href="">Gucci</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordian" href="#womens">
-                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                        Womens
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="womens" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <ul>
-                                        <li><a href="">Fendi</a></li>
-                                        <li><a href="">Guess</a></li>
-                                        <li><a href="">Valentino</a></li>
-                                        <li><a href="">Dior</a></li>
-                                        <li><a href="">Versace</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Kids</a></h4>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Fashion</a></h4>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Households</a></h4>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Interiors</a></h4>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Clothing</a></h4>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Bags</a></h4>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">Shoes</a></h4>
                             </div>
                         </div>
                     </div><!--/category-productsr-->
 
-                    <div class="brands_products"><!--brands_products-->
+                    <!-- <div class="brands_products">
                         <h2>Brands</h2>
                         <div class="brands-name">
                             <ul class="nav nav-pills nav-stacked">
@@ -130,17 +53,15 @@
                                 <li><a href=""> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
                             </ul>
                         </div>
-                    </div><!--/brands_products-->
+                    </div> -->
 
                     <div class="price-range"><!--price-range-->
                         <h2>Price Range</h2>
-                        <div class="well">
-                            <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
-                                data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br />
-                            <b>$ 0</b> <b class="pull-right">$ 600</b>
-                        </div>
+                        <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
                     </div><!--/price-range-->
-
+                    <div class="product__pagination">
+                        <a (click)="sliderChanged()">Apply</a>
+                    </div>
                     <div class="shipping text-center"><!--shipping-->
                         <img src="assets/images/home/shipping.jpg" alt="" />
                     </div><!--/shipping-->
@@ -152,18 +73,23 @@
                 <h2 class="title text-center">Features Items</h2>
                 <div class="features_items"><!--features_items-->
 
-                    <ng-container *ngFor="let product of ((products$ | async)?.data)">
+                    <ng-container
+                        *ngFor="let product of ((products$ | async)?.data) | paginate: { id: 'product', itemsPerPage: (pagination$ | async)!!.itemsPerPage, currentPage: (pagination$ | async)!!.currentPage, totalItems: (pagination$ | async)!!.totalItems }">
                         <app-card [product]="product">
                         </app-card>
                     </ng-container>
 
                 </div><!--features_items-->
-                <ul class="pagination">
+                <!-- <ul class="pagination">
                     <li class="active"><a href="">1</a></li>
                     <li><a href="">2</a></li>
                     <li><a href="">3</a></li>
                     <li><a href="">&raquo;</a></li>
-                </ul>
+                </ul> -->
+
+                <pagination-controls id="product" class="my-pagination" (pageChange)="pageChanged($event)"
+                    (pageBoundsCorrection)="pageChanged($event)" [maxSize]="5" previousLabel="" nextLabel="">
+                </pagination-controls>
             </div>
         </div>
     </div>

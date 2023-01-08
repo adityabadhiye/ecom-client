@@ -1,0 +1,81 @@
+.my-pagination ::ng-deep .ngx-pagination li a,
+.my-pagination ::ng-deep .ngx-pagination .current {
+    padding: 6px 12px;
+    margin-right: 5px;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .current {
+    background: #FE980F;
+}
+
+
+.my-pagination ::ng-deep .ngx-pagination {
+    display: inline-block;
+    margin-bottom: 25px;
+    margin-top: 0;
+    padding-left: 15px;
+}
+
+.price-range ::ng-deep .ngx-slider .ngx-slider-pointer {
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: none;
+    -webkit-box-shadow: 0px 1px 10px rgb(0 0 0 / 20%);
+    box-shadow: 0px 1px 10px rgb(0 0 0 / 20%);
+    outline: none;
+    cursor: pointer;
+    top: auto;
+    bottom: -5px;
+}
+
+.price-range ::ng-deep .ngx-slider .ngx-slider-pointer:after {
+    display: none;
+}
+
+.price-range ::ng-deep .ngx-slider .ngx-slider-bar {
+    border: none;
+    background: #ebebeb;
+    height: 5px;
+}
+
+.price-range ::ng-deep .ngx-slider .ngx-slider-selection {
+    background: #dd2222;
+}
+
+.price-range ::ng-deep .ngx-slider .ngx-slider-limit {
+    display: none;
+}
+
+.price-range ::ng-deep .ngx-slider .ngx-slider-model-value,
+.price-range ::ng-deep .ngx-slider .ngx-slider-model-high,
+.price-range ::ng-deep .ngx-slider .ngx-slider-combined {
+    font-size: 16px;
+    font-weight: 700;
+    color: #dd2222;
+    font-family: 'Roboto';
+}
+
+.selected-color123 {
+    color: #fe980f !important;
+}
+
+.category-products .panel-title a {
+    cursor: pointer;
+}
+
+.search-btn {
+    height: 35px;
+    display: unset;
+    padding: 10px 14px;
+    background: #8c7f6e;
+}
+
+.search-btn {
+    cursor: pointer;
+}
+
+.search_box {
+    margin-bottom: 45px;
+}

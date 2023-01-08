@@ -37,23 +37,27 @@
                             <tr *ngFor="let c of ((cart$ | async)?.data)">
                                 <td class="shoping__cart__item">
                                     <img src={{c.thumbnail}} alt="">
+                                </td>
+                                <td class="shoping__cart__item">
                                     <h5>{{c.title}}</h5>
                                 </td>
                                 <td class="shoping__cart__price">
-                                    ${{c.price}}
+                                    {{c.price | currency:'INR'}}
                                 </td>
                                 <td class="shoping__cart__quantity">
                                     <div class="quantity">
                                         <div class="pro-qty">
+                                            <span (click)="dec(c.id)" class="dec qtybtn">-</span>
                                             <input type="text" value={{c.quantity}}>
+                                            <span (click)="inc(c.productId)" class="inc qtybtn">+</span>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="shoping__cart__total">
-                                    ${{c.quantity*c.price}}
+                                    {{c.quantity*c.price | currency:'INR'}}
                                 </td>
                                 <td class="shoping__cart__item__close">
-                                    <span class="icon_close"></span>
+                                    <span (click)="delete(c.productId)" class="icon_close"></span>
                                 </td>
                             </tr>
                             <!-- one item -->
@@ -85,10 +89,10 @@
                 <div class="shoping__checkout">
                     <h5>Cart Total</h5>
                     <ul>
-                        <li>Subtotal <span>${{(cartTotal$ | async)?.sub_total}}</span></li>
-                        <li>Total <span>${{(cartTotal$ | async)?.total}}</span></li>
+                        <li>Subtotal <span>{{(cartTotal$ | async)?.sub_total | currency:'INR'}}</span></li>
+                        <li>Total <span>{{(cartTotal$ | async)?.total | currency:'INR'}}</span></li>
                     </ul>
-                    <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                    <a (click)="checkout()" class="primary-btn">PROCEED TO CHECKOUT</a>
                 </div>
             </div>
         </div>

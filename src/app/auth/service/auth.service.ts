@@ -1,23 +1,33 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { of } from "rxjs";
+import { HotToastService } from "@ngneat/hot-toast";
+import { Observable, of, throwError } from "rxjs";
 import { ajax, AjaxResponse } from "rxjs/ajax";
 import { catchError, map, tap } from "rxjs/operators";
 import { ApiResponse } from "src/app/shared/api-resp.model";
 import { environment } from "src/environments/environment";
-import { AuthRepository } from "../state/auth.repository";
+import { AuthProps, AuthRepository } from "../state/auth.repository";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
     constructor(
         private authRepository: AuthRepository,
-        private router: Router
+        private router: Router,
+        private toast: HotToastService
     ) { }
 
     isAuthenticated(): Boolean {
         return !!this.authRepository.getToken();
+    }
+
+    getAuthState(): Observable<AuthProps> {
+        return this.authRepository.authState$;
+    }
+
+    getToken(): string {
+        return 'Bearer ' + this.authRepository.getToken() as string;
     }
 
     login(data: { email: string, password: string }) {
@@ -39,6 +49,7 @@ export class AuthService {
                     }
                 }),
                 catchError(error => {
+                    this.toast.error("Network error");
                     console.log('error: ', error);
                     this.authRepository.reset();
                     return of(error);
@@ -54,9 +65,26 @@ export class AuthService {
     signup(data: { fullName: string, email: string, password: string }) {
         const key = 'signup';
         // console.log(data, data.fullName, data.email, data.password);
-        ajax.post(environment.apiUrlSpring + "/register", data, { 'Content-Type': 'application/json' }).pipe(
-            tap(resp => console.log(resp.response)),
-        ).subscribe();
+        ajax.post(environment.apiUrlSpring + "/register", data, { 'Content-Type': 'application/json' })
+            .pipe(
+                map(r => r.response as Partial<ApiResponse>),
+                tap(resp => {
+                    console.log(resp);
+                    if (resp.success) {
+                        this.authRepository.setState({ token: resp.data.token, full_name: resp.data.user.fullName, email: resp.data.user.email }, key);
+                        this.router.navigate(['/products']);
+                    } else {
+                        this.authRepository.setError((resp.error == 'validation error') ? resp.validation : { error: resp.error }, key);
+                    }
+                }),
+                catchError(error => {
+                    this.toast.error("Network error");
+                    console.log('error: ', error);
+                    this.authRepository.reset();
+                    return of(error);
+                }),
+                this.authRepository.trackRequestsStatus(key)
+            ).subscribe();
         //POST REQUEST HERE
     }
 
@@ -66,8 +94,4 @@ export class AuthService {
         //as this method will be called on token expiry
     }
 
-}
-
-function fromFetch() {
-    throw new Error("Function not implemented.");
 }

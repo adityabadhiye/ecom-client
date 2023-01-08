@@ -1,34 +1,56 @@
 // TODO: SETUP SERVICE AND REPOSITORY AND NO_PRODUCT_IN_CART_ERROR
 
-// import { HttpClient } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
-// import { trackRequestResult } from '@ngneat/elf-requests';
-// import { map, tap } from 'rxjs/operators';
-// import { ProductResponce } from 'src/app/shared/product-resp.model';
-// import { ProductsResponce } from 'src/app/shared/products-resp.model';
-// import { environment } from 'src/environments/environment';
-// import { Product, ProductsRepository } from '../state/products.repository';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { HotToastService } from "@ngneat/hot-toast";
+import { of } from "rxjs";
+import { ajax } from "rxjs/ajax";
+import { catchError, map, tap } from "rxjs/operators";
+import { AuthService } from "src/app/auth/service/auth.service";
+import { ApiResponse } from "src/app/shared/api-resp.model";
+import { environment } from "src/environments/environment";
+import { CheckoutRepository } from "../state/checkout.repository";
 
-// @Injectable({ providedIn: 'root' })
-// export class CheckoutService {
+@Injectable({ providedIn: 'root' })
+export class CheckoutService {
 
-//     constructor(private productsRepository: ProductsRepository, private http: HttpClient) {
-//     }
+    constructor(
+        // private http: HttpClient,
+        private auth: AuthService,
+        private checkoutRepository: CheckoutRepository,
+        private toast: HotToastService
+    ) { }
 
-//     fetchProducts() {
-//         return this.http.get<ProductsResponce>(environment.apiUrl + '/products').pipe(
-//             map((responce: ProductsResponce) => {
-//                 const entities: Product[] = responce.products.map((o: ProductResponce) => ({
-//                     id: o.id,
-//                     title: o.title,
-//                     price: o.price,
-//                     thumbnail: o.thumbnail
-//                 }));
-//                 return entities;
-//             }),
-//             tap((e) => this.productsRepository.setProducts(e)),
-//             trackRequestResult(['products'])
-//         ).subscribe();
-//     }
+    getCheckoutStatus() {
+        return this.checkoutRepository.checkoutStatus$;
+    }
 
-// }
+    checkout(data: any) {
+        ajax.post(environment.apiUrlSpring + "/create-order", data, { Authorization: this.auth.getToken() })
+            .pipe(
+                map(r => r.response as Partial<ApiResponse>),
+                tap(resp => {
+                    // console.log(resp);
+                    if (resp.success) {
+                        if (typeof resp.data.paymentURL == "string")
+                            window.location.href = resp.data.paymentURL as string;
+                        else
+                            this.toast.error("Server error")
+                    } else {
+                        if (resp.error == 'validation error') {
+                            this.toast.error("Validation Error");
+                            this.checkoutRepository.setError(resp.validation);
+                        } else {
+                            this.checkoutRepository.setError({ error: resp.error });
+                        }
+                    }
+                }),
+                catchError(error => {
+                    this.toast.error("Network error");
+                    console.log('error: ', error);
+                    return of(error);
+                }),
+                this.checkoutRepository.trackRequestsStatus('checkout')
+            ).subscribe();
+    }
+}

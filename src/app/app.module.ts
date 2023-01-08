@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { FooterModule } from './footer/footer.module';
 import { HeaderModule } from './header/header.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HotToastModule } from '@ngneat/hot-toast';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,11 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AppRoutingModule,
     HeaderModule,
     FooterModule,
+    HotToastModule.forRoot({
+      position: "bottom-center",
+      dismissible: true,
+      theme: "snackbar"
+    }),
     // ProductsModule,
   ],
   providers: [],

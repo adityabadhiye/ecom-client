@@ -12,7 +12,7 @@ export interface AuthProps {
 
 @Injectable({ providedIn: 'root' })
 export class AuthRepository {
-  authState$: Observable<any>
+  authState$: Observable<AuthProps>
 
   private store;
   private validationStore;
@@ -34,8 +34,8 @@ export class AuthRepository {
     this.loginStatus$ = this.validationStore.pipe(selectRequestStatus('login'));
     this.signupStatus$ = this.validationStore.pipe(selectRequestStatus('signup'));
 
-    this.authState$.subscribe(console.log);
-    this.loginStatus$.subscribe(console.log);
+    // this.authState$.subscribe(console.log);
+    // this.loginStatus$.subscribe(console.log);
   }
   private createValidationStore(): typeof store {
     const store = createStore(

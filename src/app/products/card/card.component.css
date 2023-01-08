@@ -2,6 +2,10 @@
     margin-top: 20px;
 }
 
-.single-products {
+.single-products .productinfo {
     cursor: pointer;
+}
+
+.product-overlay {
+    display: none !important;
 }

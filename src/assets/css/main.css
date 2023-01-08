@@ -5,6 +5,22 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
 @import url(http://fonts.googleapis.com/css?family=Abel);
 
+.product__pagination a {
+  display: unset !important;
+  cursor: pointer !important;
+  padding: 6px 10px !important;
+}
+
+.product__pagination {
+  text-align: center !important;
+}
+
+.product__pagination a:hover {
+  background: #dd2222 !important;
+  border-color: #dd2222 !important;
+  color: #ffffff !important;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   background: ;
@@ -271,7 +287,7 @@ a#scrollUp i {
   outline: medium none;
   padding-left: 10px;
   width: 155px;
-  background-image: url(../images/home/searchicon.png);
+  /* background-image: url(../images/home/searchicon.png); */
   background-repeat: no-repeat;
   background-position: 130px;
 }
@@ -799,6 +815,7 @@ h2.title:before {
   overflow: hidden;
   padding-top: 20px;
   position: relative;
+  margin-bottom: 100px;
 }
 
 
@@ -1104,9 +1121,12 @@ h2.title {
 *******Shop CSS******
 **************************/
 
+.primary-btn {
+  cursor: pointer;
+}
 
 #advertisement {
-  padding-bottom: 45px;
+  padding-bottom: 40px;
 }
 
 #advertisement img {

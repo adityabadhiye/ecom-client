@@ -167,7 +167,7 @@ ol {
 	color: #ffffff;
 	text-transform: uppercase;
 	font-weight: 700;
-	background: #7fad39;
+	background: #fe980f;
 	letter-spacing: 2px;
 }
 
@@ -1918,13 +1918,16 @@ ol {
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item {
-	width: 630px;
+	/* width: 630px; */
 	text-align: left;
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item img {
 	display: inline-block;
 	margin-right: 25px;
+	max-height: 100px;
+	width: 100px;
+	object-fit: contain;
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item h5 {

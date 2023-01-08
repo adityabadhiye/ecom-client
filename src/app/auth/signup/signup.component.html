@@ -1,5 +1,10 @@
 <div class="signup-form"><!--sign up form-->
     <h2>New User Signup!</h2>
+    <div class="validation" *ngIf="(signupStatus$ | async).value=='error'">
+        <div *ngFor="let item of ((signupStatus$ | async ).error | keyvalue)">
+            <b>{{item.key}}</b>: {{item.value}}
+        </div>
+    </div>
     <form [formGroup]="signupForm" (ngSubmit)="submit()">
         <input type="text" placeholder="Name" formControlName="fullName" />
         <input type="email" placeholder="Email" formControlName="email" />

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { RouterModule } from '@angular/router';
 import { CheckoutRoutes } from './checkout.routes';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -12,7 +13,8 @@ import { CheckoutRoutes } from './checkout.routes';
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(CheckoutRoutes)
+    RouterModule.forChild(CheckoutRoutes),
+    ReactiveFormsModule
   ]
 })
 export class CheckoutModule { }

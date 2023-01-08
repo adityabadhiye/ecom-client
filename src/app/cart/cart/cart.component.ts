@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { jquery } from 'src/app/shared/jquery';
 import { CartService } from '../service/cart.service';
 import { CartRepository } from '../state/cart.repository';
 
@@ -19,5 +20,19 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.cart$.subscribe(console.log);
     this.cartService.fetchCart();
+    setTimeout(jquery, 1000);
+  }
+
+  dec(cartId: number) {
+    this.cartService.decQuantity(cartId);
+  }
+  inc(productId: number) {
+    this.cartService.addQuantity(productId, 1);
+  }
+  delete(productId: number) {
+    this.cartService.deleteCartItem(productId);
+  }
+  checkout() {
+    this.cartService.checkout();
   }
 }

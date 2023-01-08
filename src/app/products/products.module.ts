@@ -4,6 +4,9 @@ import { ProductsComponent } from './products/products.component';
 import { RouterModule } from '@angular/router';
 import { ProductsRoutes } from './products.routes';
 import { CardComponent } from './card/card.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxSliderModule } from 'ngx-slider-v2';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -14,7 +17,10 @@ import { CardComponent } from './card/card.component';
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(ProductsRoutes)
+    RouterModule.forChild(ProductsRoutes),
+    NgxPaginationModule,
+    NgxSliderModule,
+    FormsModule
   ]
 })
 export class ProductsModule { }
