@@ -17,7 +17,7 @@ export class OrderDetailRepository {
   constructor() {
     this.store = this.createStore();
     this.orderDetail$ = this.store.pipe(select((state) => state.orderDetail), joinRequestResult(['order-detail']));
-    this.orderDetail$.subscribe(console.log);
+    // this.orderDetail$.subscribe(console.log);
   }
 
   setOrderDetail(order: OrderResponse) {

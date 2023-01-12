@@ -10,8 +10,8 @@ import { ProductDetailModule } from './product-detail/product-detail.module';
 import { ProductsModule } from './products/products.module';
 
 const routes: Routes = [
-  { path: '404', component: PageNotFoundComponent }
-  // { path: '**', redirectTo: '404' }
+  // { path: '404', component: PageNotFoundComponent }
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

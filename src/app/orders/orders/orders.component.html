@@ -20,11 +20,13 @@
                         <th>Details</th>
                     </tr>
                 </thead>
-                <tbody *ngIf="(orders$|async).isSuccess">
+                <tbody *ngIf="(orders$|async)?.isSuccess">
                     <tr *ngFor="let o of (orders$|async).data">
                         <td>{{o.id}}</td>
-                        <td><a>{{o.totalPrice|currency}}</a></td>
-                        <td><span class="status text-success">&bull;</span>{{o.paymentStatus}}</td>
+                        <td><a>{{o.totalPrice|currency:'INR' }}</a></td>
+                        <td><span class="status"
+                                [style.color]="o.paymentStatus=='SUCCESS'?'#10c469':o.paymentStatus=='UNPAID'?'grey':'#ff4f4f'">&bull;</span>{{o.paymentStatus}}
+                        </td>
                         <td><span class="status text-success">&bull;</span>{{o.orderStatus}}</td>
                         <td>{{o.createdAt|date}}</td>
                         <td><a [routerLink]="['/order/',o.id]" class="view" title="View Details"

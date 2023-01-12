@@ -4,6 +4,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { ProductDetailRoutes } from './product-detail.routes';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthGuardService } from '../auth/service/auth-guard.service';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     RouterModule.forChild(ProductDetailRoutes),
     FormsModule
-  ]
+  ],
+  providers: [AuthGuardService]
 })
 export class ProductDetailModule { }

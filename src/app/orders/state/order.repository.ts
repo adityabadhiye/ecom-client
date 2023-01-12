@@ -21,7 +21,7 @@ export class OrderRepository {
   constructor() {
     this.store = this.createStore();
     this.order$ = this.store.pipe(selectAllEntities(), joinRequestResult(['order']));
-    this.order$.subscribe(console.log)
+    // this.order$.subscribe(console.log)
   }
 
   setOrder(order: Order[]) {

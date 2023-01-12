@@ -23,7 +23,7 @@ export class SignupComponent {
       password: new FormControl('')
     });
     this.signupStatus$ = this.authRepository.signupStatus$;
-    this.signupStatus$.subscribe(console.log);
+    // this.signupStatus$.subscribe(console.log);
   }
 
   submit() {

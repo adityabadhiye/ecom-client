@@ -18,7 +18,8 @@ export class CheckoutService {
         // private http: HttpClient,
         private auth: AuthService,
         private checkoutRepository: CheckoutRepository,
-        private toast: HotToastService
+        private toast: HotToastService,
+        private http: HttpClient
     ) { }
 
     getCheckoutStatus() {
@@ -26,9 +27,9 @@ export class CheckoutService {
     }
 
     checkout(data: any) {
-        ajax.post(environment.apiUrlSpring + "/create-order", data, { Authorization: this.auth.getToken() })
+        this.http.post<Partial<ApiResponse>>(environment.apiUrlSpring + "/create-order", data, { headers: { Authorization: this.auth.getToken() } })
             .pipe(
-                map(r => r.response as Partial<ApiResponse>),
+                // map(r => r.response as Partial<ApiResponse>),
                 tap(resp => {
                     // console.log(resp);
                     if (resp.success) {
@@ -37,8 +38,8 @@ export class CheckoutService {
                         else
                             this.toast.error("Server error")
                     } else {
+                        this.toast.error(resp.error);
                         if (resp.error == 'validation error') {
-                            this.toast.error("Validation Error");
                             this.checkoutRepository.setError(resp.validation);
                         } else {
                             this.checkoutRepository.setError({ error: resp.error });

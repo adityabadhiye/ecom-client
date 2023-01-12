@@ -13,7 +13,7 @@ import { ProductsRepository } from '../state/products.repository';
 })
 
 export class ProductsComponent implements OnInit {
-  MAX_PRICE_SLIDER_LIMIT = 1000000;
+  MAX_PRICE_SLIDER_LIMIT = 200_000;
   // params
   pageParam: number = 1;
   categoryParam: string | null = null;
@@ -47,6 +47,8 @@ export class ProductsComponent implements OnInit {
       this.maxParam = +params['max'] ? +params['max'] : this.MAX_PRICE_SLIDER_LIMIT;
       this.searchParam = params['search'];
 
+      this.minValue = this.minParam;
+      this.maxValue = this.maxParam;
       this.categoryService.selectCategory(this.categoryParam || '');
       this.searchText = this.searchParam ? this.searchParam : "";
       this.productsService.fetchProducts(this.pageParam, this.categoryParam, this.minParam, this.maxParam, this.searchParam);
@@ -90,9 +92,9 @@ export class ProductsComponent implements OnInit {
     floor: 0,
     ceil: this.MAX_PRICE_SLIDER_LIMIT,
     translate: (value: number): string => {
-      return '$' + value;
+      return '₹' + value;
     },
-    step: 500
+    step: 100
   };
 
   searchChanged() {

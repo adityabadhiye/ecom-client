@@ -31,12 +31,8 @@
                                                     <tr>
                                                         <td align="center"
                                                             style="padding:0;Margin:0;padding-top:10px;padding-left:15px;padding-right:15px;font-size:0px">
-                                                            <a target="_blank"
-                                                                style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#926B4A;font-size:14px"><img
-                                                                    src="assets/images/order-details/60121620374838489.png"
-                                                                    alt
-                                                                    style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
-                                                                    width="30"></a>
+                                                            <a style="font-size: 30px;color:#666666"
+                                                                class="fa-regular fa-circle-check"></a>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -61,17 +57,13 @@
                                         <tr>
                                             <td align="left" style="padding:0;Margin:0;width:176px">
                                                 <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#efefef"
-                                                    [style.background-color]="(orderDetail$|async)?.data.paymentStatus=='UNPAID'?'#efefef':'##c4f2ba'"
+                                                    [style.background-color]="(orderDetail$|async)?.data.paymentStatus=='UNPAID'?'#efefef':(orderDetail$|async)?.data.paymentStatus=='SUCCESS'?'#c4f2ba':'#ffbbbb'"
                                                     style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                     <tr>
                                                         <td align="center"
                                                             style="padding:0;Margin:0;padding-top:10px;padding-left:15px;padding-right:15px;font-size:0px">
-                                                            <a target="_blank"
-                                                                style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#926B4A;font-size:14px"><img
-                                                                    [src]="(orderDetail$|async)?.data.paymentStatus=='UNPAID'?'assets/images/order-details/85851620374838300.png':'assets/images/order-details/60121620374838489.png'"
-                                                                    alt
-                                                                    style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
-                                                                    width="30"></a>
+                                                            <a style="font-size: 30px;color:#666666" class="fa-regular"
+                                                                [ngClass]="(orderDetail$|async)?.data.paymentStatus=='UNPAID'?'fa-circle':(orderDetail$|async)?.data.paymentStatus=='SUCCESS'?'fa-circle-check':'fa-circle-xmark'"></a>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -340,7 +332,7 @@
                                                             style="padding:0;Margin:0;padding-top:20px;padding-bottom:20px">
                                                             <p class="p_price"
                                                                 style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#666666;font-size:14px">
-                                                                {{i.product.price*i.quantity | currency}}</p>
+                                                                {{i.product.price*i.quantity | currency:'INR'}}</p>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -419,8 +411,8 @@
                                                             <p
                                                                 style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#666666;font-size:14px">
                                                                 {{(orderDetail$|async)?.data.totalOrderPrice
-                                                                | currency}}<br>$00.00<br><strong>{{(orderDetail$|async)?.data.totalPrice
-                                                                    | currency}}</strong>
+                                                                | currency:'INR'}}<br>₹00.00<br><strong>{{(orderDetail$|async)?.data.totalPrice
+                                                                    | currency:'INR'}}</strong>
                                                             </p>
                                                         </td>
                                                     </tr>

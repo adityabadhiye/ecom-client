@@ -30,8 +30,8 @@ export class CartRepository {
     this.store = this.createStore();
     this.cart$ = this.store.pipe(selectAllEntities(), joinRequestResult(['cart']));
     this.cartTotal$ = this.store.pipe(select((state) => { return { sub_total: state.sub_total, total: state.total } }));
-    this.cart$.subscribe(console.log);
-    this.cartTotal$.subscribe(console.log)
+    // this.cart$.subscribe(console.log);
+    // this.cartTotal$.subscribe(console.log)
   }
 
   setCart(cart: Cart[]) {

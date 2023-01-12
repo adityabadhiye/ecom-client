@@ -13,7 +13,7 @@ export class CheckoutRepository {
     this.store = this.createStore();
     this.trackRequestsStatus = createRequestsStatusOperator(this.store);
     this.checkoutStatus$ = this.store.pipe(selectRequestStatus('checkout'));
-    this.checkoutStatus$.subscribe(console.log);
+    // this.checkoutStatus$.subscribe(console.log);
   }
 
   setError(error: any) {

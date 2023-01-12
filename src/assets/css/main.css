@@ -1,9 +1,9 @@
 ﻿/*************************
 *******Typography******
 **************************/
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,700,100);
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
-@import url(http://fonts.googleapis.com/css?family=Abel);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,700,100);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
+@import url(https://fonts.googleapis.com/css?family=Abel);
 
 .product__pagination a {
   display: unset !important;
@@ -88,7 +88,7 @@ a#scrollUp i {
 **************************/
 
 .header_top {
-  background: none repeat scroll 0 0 #F0F0E9;
+  background: none repeat scroll 0 0 #f8f8f8;
 }
 
 .contactinfo ul li:first-child {
@@ -207,11 +207,16 @@ a#scrollUp i {
   text-decoration: none;
 }
 
-
 .shop-menu ul li {
-  display: inline-block;
+  display: block;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+@media only screen and (min-width: 480px) {
+  .shop-menu ul li {
+    display: inline-block;
+  }
 }
 
 .shop-menu ul li:last-child {

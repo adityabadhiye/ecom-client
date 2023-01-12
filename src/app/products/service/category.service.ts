@@ -7,7 +7,6 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { ApiResponse } from 'src/app/shared/api-resp.model';
 import { environment } from 'src/environments/environment';
 import { CategoryRepository } from '../state/category.repository';
-import { Product, ProductsRepository } from '../state/products.repository';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryService {

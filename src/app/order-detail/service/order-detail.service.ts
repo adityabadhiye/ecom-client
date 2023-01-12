@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { trackRequestResult } from "@ngneat/elf-requests";
 import { HotToastService } from "@ngneat/hot-toast";
@@ -14,7 +15,8 @@ export class OrderDetailService {
     constructor(
         private orderDetailRepository: OrderDetailRepository,
         private toast: HotToastService,
-        private auth: AuthService
+        private auth: AuthService,
+        private http: HttpClient
     ) { }
 
     getOrderDetails() {
@@ -22,17 +24,16 @@ export class OrderDetailService {
     }
 
     fetchOrderDetail(id: string) {
-        console.log(id);
         // this.orderDetailRepository.orderDetail(+id).subscribe(console.log);
-        ajax.get(environment.apiUrlSpring + '/order?order_id=' + id, { Authorization: this.auth.getToken() }).pipe(
-            map((response) => response.response as Partial<ApiResponse>),
+        this.http.get<Partial<ApiResponse>>(environment.apiUrlSpring + '/order?order_id=' + id, { headers: { Authorization: this.auth.getToken() } }).pipe(
+            // map((response) => response.response as Partial<ApiResponse>),
             tap((res) => {
                 if (res.success)
                     this.orderDetailRepository.setOrderDetail(res.data);
                 else
                     this.toast.error(res.error);
             }),
-            trackRequestResult(['order-detail']),
+            trackRequestResult(['order-detail'], { skipCache: true }),
             catchError(error => {
                 this.toast.error("Network error");
                 console.log('error: ', error);

@@ -4,6 +4,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { RouterModule } from '@angular/router';
 import { CheckoutRoutes } from './checkout.routes';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthGuardService } from '../auth/service/auth-guard.service';
 
 
 
@@ -15,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     RouterModule.forChild(CheckoutRoutes),
     ReactiveFormsModule
-  ]
+  ],
+  providers: [AuthGuardService]
 })
 export class CheckoutModule { }

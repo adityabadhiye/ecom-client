@@ -1,8 +1,8 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { trackRequestResult } from "@ngneat/elf-requests";
 import { HotToastService } from "@ngneat/hot-toast";
-import { catchError, map, of, tap } from "rxjs";
-import { ajax } from "rxjs/ajax";
+import { catchError, of, tap } from "rxjs";
 import { AuthService } from "src/app/auth/service/auth.service";
 import { ApiResponse } from "src/app/shared/api-resp.model";
 import { environment } from "src/environments/environment";
@@ -14,7 +14,8 @@ export class OrdersService {
     constructor(
         private orderRepository: OrderRepository,
         private toast: HotToastService,
-        private auth: AuthService
+        private auth: AuthService,
+        private http: HttpClient
     ) { }
 
     getOrders() {
@@ -22,8 +23,8 @@ export class OrdersService {
     }
 
     fetchOrders() {
-        ajax.get(environment.apiUrlSpring + '/orders', { Authorization: this.auth.getToken() }).pipe(
-            map((response) => response.response as Partial<ApiResponse>),
+        this.http.get<Partial<ApiResponse>>(environment.apiUrlSpring + '/orders', { headers: { Authorization: this.auth.getToken() } }).pipe(
+            // map((response) => response.response as Partial<ApiResponse>),
             tap((res) => {
                 if (res.success)
                     this.orderRepository.setOrder(res.data.content);
@@ -33,7 +34,7 @@ export class OrdersService {
             trackRequestResult(['order']),
             catchError(error => {
                 this.toast.error("Network error");
-                console.log('error: ', error);
+                // console.log('error: ', error);
                 return of(error);
             }),
         ).subscribe();

@@ -23,6 +23,7 @@ export class ProductDetailRepository {
   constructor() {
     this.store = this.createStore();
     this.productDetail$ = this.store.pipe(select((state) => state), joinRequestResult(['product-detail']));
+    // this.productDetail$.subscribe(console.log);
   }
 
   setProduct(product: ProductDetailProps) {

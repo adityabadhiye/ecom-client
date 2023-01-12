@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { AuthRoutes } from './auth.routes';
 import { AuthComponent } from './auth/auth.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthGuardService } from './service/auth-guard.service';
+import { NgProgressModule } from 'ngx-progressbar';
 
 
 
@@ -18,7 +20,11 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RouterModule.forChild(AuthRoutes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgProgressModule.withConfig({
+      spinner: false,
+      color: "red"
+    }),
   ],
   exports: [
     LoginComponent

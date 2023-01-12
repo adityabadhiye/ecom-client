@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { trackRequestResult } from '@ngneat/elf-requests';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Observable, of } from 'rxjs';
-import { ajax } from 'rxjs/ajax';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { ApiResponse } from 'src/app/shared/api-resp.model';
 import { environment } from 'src/environments/environment';
@@ -51,9 +50,9 @@ export class CartService {
             productId: itemId,
             quantity: quantity
         }
-        ajax.post(environment.apiUrlSpring + "/cart/add", data, { Authorization: this.auth.getToken() })
+        this.http.post<Partial<ApiResponse>>(environment.apiUrlSpring + "/cart/add", data, { headers: { Authorization: this.auth.getToken() } })
             .pipe(
-                map(r => r.response as Partial<ApiResponse>),
+                // map(r => r.response as Partial<ApiResponse>),
                 tap(resp => {
                     // console.log(resp);
                     if (resp.success) {
@@ -65,7 +64,7 @@ export class CartService {
                     }
                 }),
                 catchError(error => {
-                    this.toast.error("Network error");
+                    this.toast.info("Login required");
                     console.log('error: ', error);
                     return of(error);
                 }),
@@ -74,9 +73,9 @@ export class CartService {
 
     deleteCartItem(itemId: number) {
         // console.log("delete", itemId);
-        ajax.delete(environment.apiUrlSpring + "/cart?product_id=" + itemId, { Authorization: this.auth.getToken() })
+        this.http.delete<Partial<ApiResponse>>(environment.apiUrlSpring + "/cart?product_id=" + itemId, { headers: { Authorization: this.auth.getToken() } })
             .pipe(
-                map(r => r.response as Partial<ApiResponse>),
+                // map(r => r.response as Partial<ApiResponse>),
                 tap(resp => {
                     // console.log(resp);
                     if (resp.success) {
@@ -103,9 +102,9 @@ export class CartService {
                 quantity: cart.quantity - 1
             }
             // console.log("update cart", data.productId, data.quantity);
-            ajax.put(environment.apiUrlSpring + "/cart", data, { Authorization: this.auth.getToken() })
+            this.http.put<Partial<ApiResponse>>(environment.apiUrlSpring + "/cart", data, { headers: { Authorization: this.auth.getToken() } })
                 .pipe(
-                    map(r => r.response as Partial<ApiResponse>),
+                    // map(r => r.response as Partial<ApiResponse>),
                     tap(resp => {
                         // console.log(resp);
                         if (resp.success) {

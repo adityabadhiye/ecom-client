@@ -15,7 +15,8 @@ export class AuthService {
     constructor(
         private authRepository: AuthRepository,
         private router: Router,
-        private toast: HotToastService
+        private toast: HotToastService,
+        private http: HttpClient
     ) { }
 
     isAuthenticated(): Boolean {
@@ -36,11 +37,11 @@ export class AuthService {
         // this.http.post(environment.apiUrlSpring + "/login", data).pipe(
         //     tap(console.log)
         // ).subscribe();
-        ajax.post(environment.apiUrlSpring + "/login", data, { 'Content-Type': 'application/json' })
+        this.http.post<Partial<ApiResponse>>(environment.apiUrlSpring + "/login", data)
             .pipe(
-                map(r => r.response as Partial<ApiResponse>),
+                // map(r => r.response as Partial<ApiResponse>),
                 tap(resp => {
-                    console.log(resp);
+                    // console.log(resp);
                     if (resp.success) {
                         this.authRepository.setState({ token: resp.data.token, full_name: resp.data.user.fullName, email: resp.data.user.email }, key);
                         this.router.navigate(['/products']);
@@ -65,11 +66,11 @@ export class AuthService {
     signup(data: { fullName: string, email: string, password: string }) {
         const key = 'signup';
         // console.log(data, data.fullName, data.email, data.password);
-        ajax.post(environment.apiUrlSpring + "/register", data, { 'Content-Type': 'application/json' })
+        this.http.post<Partial<ApiResponse>>(environment.apiUrlSpring + "/register", data)
             .pipe(
-                map(r => r.response as Partial<ApiResponse>),
+                // map(r => r.response as Partial<ApiResponse>),
                 tap(resp => {
-                    console.log(resp);
+                    // console.log(resp);
                     if (resp.success) {
                         this.authRepository.setState({ token: resp.data.token, full_name: resp.data.user.fullName, email: resp.data.user.email }, key);
                         this.router.navigate(['/products']);
@@ -90,6 +91,7 @@ export class AuthService {
 
     logout() {
         this.authRepository.reset();
+        this.router.navigate(['/login'])
         //maybe redirect to login page again?
         //as this method will be called on token expiry
     }

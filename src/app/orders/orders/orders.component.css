@@ -257,6 +257,8 @@ table.table .avatar {
     font-size: 13px;
 }
 
-.container-xl {
-    margin: 0px 120px;
+@media only screen and (min-width : 768px) {
+    .container-xl {
+        margin: 0px 120px;
+    }
 }
