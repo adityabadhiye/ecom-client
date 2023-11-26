@@ -4,7 +4,7 @@
 
 [Live Website](https://www.eshoppers.me/) 
 
-[Backend](https://github.com/adityabadhiye/ecom-client)
+[Backend](https://github.com/adityabadhiye/ecom-backend)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.3.
 
